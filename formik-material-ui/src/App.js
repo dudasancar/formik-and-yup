@@ -12,7 +12,7 @@ const validationSchema = Yup.object({
     .required('Obrigatório'),
   cpf: Yup
     .string('Insira seu CPF')
-    .max(11, 'CPF inválido')
+    .max(14, 'CPF inválido')
     .required('Obrigatório'),
   password: Yup
     .string('Insira sua senha')
