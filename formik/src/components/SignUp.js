@@ -18,7 +18,7 @@ const SignUp = () => {
             .email('Email inválido')
             .required('Obrigatório'),
         cpf: Yup.string()
-            .max(11, 'CPF inválido')
+            .max(14, 'CPF inválido')
             .required('Obrigatório'),
         password: Yup.string()
             .min(6, 'No minímo 6 caracteres')
