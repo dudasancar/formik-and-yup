@@ -6,14 +6,14 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ReactInputMask from 'react-input-mask';
 import { makeStyles } from '@material-ui/core';
+import { MenuItem } from '@material-ui/core';
 
 const validationSchema = Yup.object({
   nome: Yup
     .string('Insira seu Nome')
     .required('Obrigatório'),
   date: Yup
-    .string('Insira seu Nome')
-    .required('Obrigatório'),
+    .string('Insira sua data de nascimento'),
   gender: Yup
     .string('Insira seu Gênero'),
   email: Yup
@@ -57,6 +57,33 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const genders = [
+  {
+    value: 'fem',
+    label: 'mulher',
+  },
+  {
+    value: 'masc',
+    label: 'homem',
+  },
+  {
+    value: 'naobinarie',
+    label: 'não binárie',
+  },
+  {
+    value: 'trans',
+    label: 'transexual',
+  },
+  {
+    value: 'travesti',
+    label: 'travesti',
+  },
+  {
+    value: 'outro',
+    label: 'outro',
+  },
+];
+
 function App() {
   const formik = useFormik({
     initialValues: {
@@ -80,7 +107,6 @@ function App() {
       <form onSubmit={formik.handleSubmit} className={classes.form}>
         <h2 className={classes.title}>Cadastro de Usuário</h2>
         <TextField
-          fullWidth
           required
           id="nome"
           name="nome"
@@ -95,7 +121,6 @@ function App() {
           helperText={formik.touched.nome && formik.errors.nome}
         />
         <TextField
-          fullWidth
           id="date"
           name="date"
           label="Data de Nascimento"
@@ -110,7 +135,6 @@ function App() {
           helperText={formik.touched.date && formik.errors.date}
         />
         <TextField
-          fullWidth
           id="gender"
           select
           name="gender"
@@ -122,11 +146,13 @@ function App() {
           value={formik.values.gender}
           onChange={formik.handleChange}
         >
-          <option>masculino</option>
-          <option>feminino</option>
+          {genders.map((gender) => (
+            <MenuItem key={gender.value} value={gender.value}>
+              {gender.label}
+            </MenuItem>
+          ))}
         </TextField>
         <TextField
-          fullWidth
           required
           id="email"
           name="email"
@@ -148,7 +174,6 @@ function App() {
           onChange={formik.handleChange}
         >
           {() => <TextField 
-          fullWidth
           required 
           label="CPF"
           id="cpf"
@@ -162,7 +187,6 @@ function App() {
           />}
         </ReactInputMask>
         <TextField
-          fullWidth
           required
           id="password"
           name="password"
@@ -178,7 +202,6 @@ function App() {
           helperText={formik.touched.password && formik.errors.password}
         />
         <TextField
-          fullWidth
           required
           id="confirmPassword"
           name="confirmPassword"
