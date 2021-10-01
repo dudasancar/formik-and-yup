@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Button from '@material-ui/core/Button';
@@ -33,7 +33,6 @@ function App() {
     },
   });
 
-  const [cpf, setCpf] = useState();
   return (
     <div className="App">
       <form onSubmit={formik.handleSubmit}>
@@ -49,12 +48,19 @@ function App() {
         />
         <ReactInputMask
           mask="999.999.999-99"
-          value={cpf}
+          value={formik.values.cpf}
           disabled={false}
           maskChar=" "
-          onChange={e => setCpf(e.target.value)}
+          onChange={formik.handleChange}
         >
-          {() => <TextField fullWidth label="CPF" />}
+          {() => <TextField 
+          fullWidth 
+          label="CPF"
+          id="cpf"
+          name="cpf" 
+          error={formik.touched.cpf && Boolean(formik.errors.cpf)}
+          helperText={formik.touched.cpf && formik.errors.cpf} 
+          />}
         </ReactInputMask>
         <TextField
           fullWidth
