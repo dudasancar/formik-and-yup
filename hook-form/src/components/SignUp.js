@@ -4,10 +4,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from '@material-ui/core';
-import InputMask from "react-input-mask";
 import { MenuItem } from '@material-ui/core';
 import MaskCpf from './MaskCpf';
-import Helper from 'react-text-mask';
+
 
 const genders = [
     {
