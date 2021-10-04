@@ -1,19 +1,30 @@
 import './App.css';
 import signup from './assets/signup.png';
 import SignUp from './components/SignUp';
+import { makeStyles } from '@material-ui/core';
 
 function App() {
+  const useStyles = makeStyles(theme => ({
+    container: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      margin: '20px',
+    },
+    img: {
+      width: '100vh',
+    },
+  }));
+
+  const classes = useStyles();
+
   return (
-    <div className="container mt-3">
-      <div className="row">
-        <div className="col-md-5">
-          <SignUp />
-        </div>
-        <div className="col-md-7 my-auto">
-          <img className="img-fluis w-100" src={signup} alt="sign up" />
-        </div>
+    <div className={classes.container}>
+      <SignUp />
+      <div>
+        <img className={classes.img} src={signup} alt="sign up" />
       </div>
-    </div>
+     </div>
   );
 }
 
