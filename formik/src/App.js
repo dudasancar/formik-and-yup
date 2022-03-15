@@ -1,53 +1,39 @@
-import React from 'react';
-import './App.css';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import ReactInputMask from 'react-input-mask';
-import { makeStyles } from '@material-ui/core';
-import { MenuItem } from '@material-ui/core';
+import React from "react";
+import "./App.css";
+import { useFormik } from "formik";
+import { object, string, ref } from "yup";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import ReactInputMask from "react-input-mask";
+import { makeStyles } from "@material-ui/core";
+import { MenuItem } from "@material-ui/core";
 
-const validationSchema = Yup.object({
-  nome: Yup
-    .string('Insira seu Nome')
-    .required('Obrigatório'),
-  date: Yup
-    .string('Insira sua data de nascimento'),
-  gender: Yup
-    .string('Insira seu Gênero'),
-  email: Yup
-    .string('Insira seu email')
-    .email('Email inválido')
-    .required('Obrigatório'),
-  cpf: Yup
-    .string('Insira seu CPF')
-    .max(14, 'CPF inválido')
-    .required('Obrigatório'),
-  password: Yup
-    .string('Insira sua senha')
-    .min(8, 'No minímo 8 caracteres')
-    .required('Obrigatório'),
-  confirmPassword: Yup
-    .string('Confirme sua senha')
-    .oneOf([Yup.ref('password'), null], 'Não corresponde')
-    .required('Obrigatório'),
+const validationSchema = object({
+  nome: string().required("Obrigatório"),
+  date: string(),
+  gender: string(),
+  email: string().email("Email inválido").required("Obrigatório"),
+  cpf: string().max(14, "CPF inválido").required("Obrigatório"),
+  password: string().min(8, "No minímo 8 caracteres").required("Obrigatório"),
+  confirmPassword: string()
+    .oneOf([ref("password"), null], "Não corresponde")
+    .required("Obrigatório"),
 });
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   container: {
-    display: 'flex',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
   form: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '25rem',
+    display: "flex",
+    flexDirection: "column",
+    width: "25rem",
   },
   title: {
-    fontFamily: 'Helvetica',
+    fontFamily: "Helvetica",
   },
   field: {
     marginTop: theme.spacing(2),
@@ -59,41 +45,41 @@ const useStyles = makeStyles(theme => ({
 
 const genders = [
   {
-    value: 'fem',
-    label: 'mulher',
+    value: "fem",
+    label: "mulher",
   },
   {
-    value: 'masc',
-    label: 'homem',
+    value: "masc",
+    label: "homem",
   },
   {
-    value: 'naobinarie',
-    label: 'não binárie',
+    value: "naobinarie",
+    label: "não binárie",
   },
   {
-    value: 'trans',
-    label: 'transexual',
+    value: "trans",
+    label: "transexual",
   },
   {
-    value: 'travesti',
-    label: 'travesti',
+    value: "travesti",
+    label: "travesti",
   },
   {
-    value: 'outro',
-    label: 'outro',
+    value: "outro",
+    label: "outro",
   },
 ];
 
 function App() {
   const formik = useFormik({
     initialValues: {
-      nome: '',
-      date: '',
-      gender: '',
-      email: '',
-      cpf: '',
-      password: '',
-      confirmPassword: '',
+      nome: "",
+      date: "",
+      gender: "",
+      email: "",
+      cpf: "",
+      password: "",
+      confirmPassword: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -173,18 +159,20 @@ function App() {
           maskChar=" "
           onChange={formik.handleChange}
         >
-          {() => <TextField 
-          required 
-          label="CPF"
-          id="cpf"
-          name="cpf" 
-          variant="outlined"
-          size="small"
-          className={classes.field}
-          InputLabelProps={{ shrink: true }}
-          error={formik.touched.cpf && Boolean(formik.errors.cpf)}
-          helperText={formik.touched.cpf && formik.errors.cpf} 
-          />}
+          {() => (
+            <TextField
+              required
+              label="CPF"
+              id="cpf"
+              name="cpf"
+              variant="outlined"
+              size="small"
+              className={classes.field}
+              InputLabelProps={{ shrink: true }}
+              error={formik.touched.cpf && Boolean(formik.errors.cpf)}
+              helperText={formik.touched.cpf && formik.errors.cpf}
+            />
+          )}
         </ReactInputMask>
         <TextField
           required
@@ -213,13 +201,18 @@ function App() {
           InputLabelProps={{ shrink: true }}
           value={formik.values.confirmPassword}
           onChange={formik.handleChange}
-          error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-          helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+          error={
+            formik.touched.confirmPassword &&
+            Boolean(formik.errors.confirmPassword)
+          }
+          helperText={
+            formik.touched.confirmPassword && formik.errors.confirmPassword
+          }
         />
-        <Button 
-          color="primary" 
-          variant="contained" 
-          fullWidth 
+        <Button
+          color="primary"
+          variant="contained"
+          fullWidth
           type="submit"
           className={classes.btn}
         >
